@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="mr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>बोलसेवा · BolSeva</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari:wght@400;600;700&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#FBF6EE;--surface:#fff;--ink:#2B1F1A;--muted:#6B5A50;--brand:#8A2232;--on-brand:#fff;--accent:#E48A1B;--ok:#2F6B4F;--okbg:#E4F1EA;--warn:#8A4B00;--warnbg:#FFF1D6;--line:#E6D9C8;--r:14px;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#1A1412;--surface:#241C19;--ink:#F4EADF;--muted:#BDAA9B;--brand:#C2415A;--accent:#F0A040;--ok:#7FD1A5;--okbg:#17302A;--warn:#F5C77A;--warnbg:#3A2A12;--line:#3A2E29}}
+:root[data-theme="dark"]{--bg:#1A1412;--surface:#241C19;--ink:#F4EADF;--muted:#BDAA9B;--brand:#C2415A;--accent:#F0A040;--ok:#7FD1A5;--okbg:#17302A;--warn:#F5C77A;--warnbg:#3A2A12;--line:#3A2E29}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 18px/1.7 "Noto Sans Devanagari","Inter",system-ui,sans-serif;background-color:var(--bg);background-image:radial-gradient(circle at 100% 0,rgba(228,138,27,.14),transparent 40%)}
+header{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--surface);border-bottom:1px solid var(--line)}
+.bar{max-width:980px;margin:auto;padding:10px 20px;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.logo{display:flex;align-items:center;gap:10px;font-weight:700;font-size:1.25rem;color:var(--brand)}
+.logo i{width:38px;height:38px;border-radius:10px;background:var(--brand);color:var(--on-brand);display:grid;place-items:center;font-style:normal;font-size:1.2rem}
+.logo small{display:block;font:600 .7rem/1 Inter,sans-serif;color:var(--muted);letter-spacing:.08em;margin-top:2px}
+.tag{margin-left:auto;font-size:.8rem;background:var(--warnbg);color:var(--warn);padding:3px 12px;border-radius:99px;font-weight:600}
+main{max-width:980px;margin:auto;padding:24px 20px 60px}
+h1{font-size:clamp(1.8rem,5vw,2.8rem);line-height:1.25;margin:.2em 0 .3em}
+h2{font-size:1.35rem;margin:1.4em 0 .5em}
+.lead{color:var(--muted);max-width:60ch}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:22px;box-shadow:0 2px 10px rgba(80,40,20,.06)}
+button,.btn{font:600 1rem/1.2 inherit;font-family:inherit;min-height:48px;padding:12px 20px;border-radius:12px;border:2px solid var(--brand);background:var(--surface);color:var(--brand);cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;gap:8px}
+button.pri,.btn.pri{background:var(--brand);color:var(--on-brand)}
+button:hover,.btn:hover{filter:brightness(.95)}
+:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+#mic{width:100%;min-height:84px;font-size:1.4rem;justify-content:center;border-radius:18px}
+#mic.on{background:var(--accent);border-color:var(--accent);color:#2B1F1A;animation:p 1.2s infinite}
+@keyframes p{50%{box-shadow:0 0 0 10px rgba(228,138,27,.25)}}
+@media (prefers-reduced-motion:reduce){#mic.on{animation:none}}
+.row{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px}
+input[type=text],textarea,select{font:inherit;width:100%;padding:12px 14px;border:2px solid var(--line);border-radius:12px;background:var(--bg);color:var(--ink)}
+.grow{flex:1 1 260px}
+.chip{font-weight:400;border-color:var(--line);color:var(--ink);min-height:44px;font-size:.95rem}
+.status{min-height:1.6em;color:var(--muted);font-size:.95rem;margin-top:8px}
+.note{border-left:5px solid var(--accent);background:var(--warnbg);color:var(--warn);padding:12px 16px;border-radius:8px;font-size:.95rem;margin:14px 0}
+.ok{background:var(--okbg);color:var(--ok);border-color:var(--ok)}
+.steps{list-style:none;padding:0;margin:0;counter-reset:s}
+.steps li{counter-increment:s;display:flex;gap:14px;align-items:flex-start;padding:14px 0;border-bottom:1px dashed var(--line)}
+.steps li:before{content:counter(s);flex:none;width:36px;height:36px;border-radius:50%;background:var(--brand);color:var(--on-brand);display:grid;place-items:center;font:700 1rem Inter,sans-serif}
+.steps .t{flex:1}
+.mini{min-height:40px;padding:6px 12px;font-size:.9rem}
+.docs{padding:0;list-style:none;margin:0}
+.docs li{padding:8px 0;display:flex;gap:10px;align-items:flex-start;flex-wrap:wrap}
+.docs li:before{content:"☐";font-size:1.3rem;color:var(--brand)}
+.b{font-size:.75rem;font-weight:700;padding:2px 10px;border-radius:99px;background:var(--warnbg);color:var(--warn);align-self:center}
+.grid{display:grid;gap:18px;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));margin-top:26px}
+.grid .card h3{margin:.2em 0;color:var(--brand);font-size:1.1rem}
+.src li{margin:.4em 0;font-size:.95rem}
+a{color:var(--brand);font-weight:600}
+#card{border:2px solid var(--brand);margin-top:28px}
+#card h2{margin-top:0;color:var(--brand)}
+.cm{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;color:var(--muted);font-size:.9rem}
+footer{max-width:980px;margin:auto;padding:0 20px 30px;color:var(--muted);font-size:.85rem}
+[hidden]{display:none!important}
+@media print{header,footer,.noprint{display:none!important}body{background:#fff;color:#000;font-size:14px}#card{border:1px solid #000;box-shadow:none;margin:0}:root{--brand:#000;--muted:#333;--warnbg:#eee;--warn:#000;--ink:#000}}
+</style>
+</head>
+<body>
+<header><div class="bar">
+<div class="logo"><i aria-hidden="true">🎙</i><div>बोलसेवा<small>BOLSEVA</small></div></div>
+<span class="tag">प्रोटोटाइप · सरकारी संकेतस्थळ नाही</span>
+</div></header>
+
+<main>
+<!-- HOME -->
+<section id="home" aria-labelledby="h-home">
+<p class="lead" style="margin:0;font-weight:600;color:var(--accent)">मराठीत बोला. पायऱ्या समजून घ्या. तयारीने जा.</p>
+<h1 id="h-home" tabindex="-1">नमस्कार! तुम्हाला कोणती सेवा हवी आहे?</h1>
+<p class="lead">सध्या फक्त <b>उत्पन्नाचा दाखला (उत्पन्न प्रमाणपत्र)</b> या सेवेसाठी मार्गदर्शन उपलब्ध आहे. बटण दाबा आणि मराठीत प्रश्न विचारा.</p>
+<div class="card" style="margin-top:20px">
+<button id="mic" class="pri" aria-pressed="false"><span aria-hidden="true">🎙</span><span id="miclabel">बोलून विचारा</span></button>
+<div id="status" class="status" role="status" aria-live="polite"></div>
+<p style="margin:14px 0 6px;font-weight:600">किंवा येथे टाइप करा</p>
+<div class="row" style="margin-top:0">
+<input type="text" id="typed" class="grow" placeholder="उदा. उत्पन्नाचा दाखला कसा काढायचा?" aria-label="तुमचा प्रश्न टाइप करा">
+<button id="go" class="pri">पुढे जा →</button>
+</div>
+<div class="row" id="chips" aria-label="सुचवलेले प्रश्न"></div>
+</div>
+<div class="grid">
+<div class="card"><h3>१. बोला किंवा टाइप करा</h3>मराठी किंवा मराठी-इंग्रजी मिश्र भाषेत प्रश्न विचारा.</div>
+<div class="card"><h3>२. तपासून खात्री करा</h3>तुम्ही काय बोललात ते स्क्रीनवर दिसेल. चूक असल्यास दुरुस्त करा.</div>
+<div class="card"><h3>३. ऐका आणि तयारी करा</h3>पायऱ्या ऐका, कागदपत्रांची यादी पाहा आणि Seva Card छापा.</div>
+</div>
+</section>
+
+<!-- CONFIRM -->
+<section id="confirm" hidden aria-labelledby="h-conf">
+<h1 id="h-conf" tabindex="-1">मी योग्य समजलो का?</h1>
+<div class="card">
+<label for="tx" class="lead">तुमचा प्रश्न (गरज असल्यास बदला):</label>
+<textarea id="tx" rows="3"></textarea>
+<div id="lowconf" class="note" hidden>आवाज स्पष्ट ऐकू आला नाही. कृपया वरील मजकूर तपासा, दुरुस्त करा किंवा पुन्हा बोला.</div>
+<div class="row">
+<button id="yes" class="pri">✔ हो, बरोबर</button>
+<button id="edit">✎ बदला</button>
+<button id="again">🎙 पुन्हा बोला</button>
+</div></div>
+</section>
+
+<!-- GUIDE -->
+<section id="guide" hidden aria-labelledby="h-guide">
+<div class="noprint">
+<h1 id="h-guide" tabindex="-1">चला, एकेक पायरी पाहूया.</h1>
+<p class="lead" id="qecho"></p>
+<div id="oos" hidden class="note">ही सेवा सध्या बोलसेवामध्ये उपलब्ध नाही. कृपया अधिकृत आपले सरकार पोर्टल पाहा किंवा जवळच्या आपले सरकार सेवा केंद्राची मदत घ्या.<div class="row"><a class="btn pri" id="oosl" target="_blank" rel="noopener">अधिकृत संकेतस्थळ उघडा ↗</a><button id="back0">← नवीन प्रश्न</button></div></div>
+<div id="svc" hidden>
+<div class="card">
+<div class="row" style="margin-top:0;align-items:center">
+<h2 style="margin:0;flex:1 1 200px" id="stitle"></h2>
+<button id="listen" class="pri">🔊 सर्व ऐका</button>
+<button id="stop">■ थांबवा</button>
+<label style="font-size:.9rem" hidden>आवाज <select id="vsel" style="width:auto;padding:6px"></select></label>
+<label style="font-size:.9rem">आवाजाचा वेग <select id="rate" style="width:auto;padding:6px"><option value="0.8">हळू</option><option value="1" selected>सामान्य</option></select></label>
+</div>
+<div id="ttsnote" class="status" role="status" aria-live="polite"></div>
+<ol class="steps" id="steps"></ol>
+</div>
+<div class="note" id="lim"></div>
+<div class="card"><h2 style="margin-top:0">कागदपत्रांची यादी</h2><ul class="docs" id="docs"></ul></div>
+<div class="card" style="margin-top:18px"><h2 style="margin-top:0">स्रोत</h2><ul class="src" id="srcs"></ul></div>
+<div class="row"><a class="btn pri" id="official" target="_blank" rel="noopener">अधिकृत संकेतस्थळ उघडा ↗</a><button id="print">🖨 Seva Card छापा / PDF जतन करा</button><button id="back1">← नवीन प्रश्न</button></div>
+</div>
+</div>
+<article id="card" hidden aria-label="Seva Card">
+<h2>तुमची सेवा-तयारी यादी · Seva Card</h2>
+<div class="cm"><span id="c-title"></span><span id="c-date"></span></div>
+<h3>पायऱ्या</h3><ol id="c-steps"></ol>
+<h3>कागदपत्रे (मसुदा – अधिकृत स्रोतावर तपासा)</h3><ul id="c-docs"></ul>
+<p><b>अधिकृत मार्ग:</b> <span id="c-link"></span><br><b>प्रकाशित कालमर्यादा:</b> <span id="c-time"></span></p>
+<p style="font-size:.85rem" id="c-lim"></p>
+<p style="font-size:.8rem">हे बोलसेवा प्रोटोटाइपने तयार केले आहे. हे सरकारी दस्तऐवज नाही; पात्रता किंवा मंजुरीची हमी नाही.</p>
+</article>
+</section>
+</main>
+<footer>बोलसेवा हा विद्यार्थी प्रोटोटाइप आहे. तो कोणत्याही सरकारी विभागाशी संलग्न नाही. आवाज (ऑडिओ) साठवला जात नाही; मायक्रोफोन फक्त तुम्ही बटण दाबल्यावर चालतो.</footer>
+
+<script>
+/* ---------- Reviewed service catalogue (STEP 1 data; status: draft) ---------- */
+const PORTAL="https://aaplesarkar.mahaonline.gov.in/en/CommonForm/ViewAllServices";
+const SERVICE={
+ id:"income-certificate",status:"draft",lastVerified:"2026-10-29",reviewer:"पडताळणी बाकी (दुसऱ्या सदस्याकडून)",
+ titleMr:"उत्पन्नाचा दाखला (उत्पन्न प्रमाणपत्र)",titleEn:"Income Certificate",
+ timeline:"१५ दिवस (जिल्हा संकेतस्थळावरील सेवा हक्क यादीनुसार; पोर्टलवर पुन्हा तपासा)",
+ steps:[
+  "आपले सरकार पोर्टल (aaplesarkar.mahaonline.gov.in) उघडा.",
+  "नवीन वापरकर्ता असल्यास नोंदणी करा; नंतर लॉगिन करा.",
+  "सेवा यादीतून “उत्पन्न प्रमाणपत्र” निवडा.",
+  "अर्ज भरा आणि आवश्यक कागदपत्रे जोडा.",
+  "अर्ज जमा करा आणि अर्ज क्रमांक सुरक्षित ठेवा.",
+  "तहसील कार्यालयाकडून तपासणी होते. मदत हवी असल्यास जवळच्या आपले सरकार / CSC सेवा केंद्रात जा."],
+ docs:["ओळखीचा पुरावा","वयाचा पुरावा (जन्म दाखला / शाळेचा दाखला)","उत्पन्नाचा पुरावा (पगार पावती, आयकर विवरण, नियोक्त्याचे प्रमाणपत्र; शेतीसाठी ७/१२)","रहिवासाचा पुरावा / रेशन कार्ड","स्वयंघोषणापत्र (आवश्यक असल्यास)"],
+ sources:[
+  {t:"आपले सरकार – सेवा यादी (अधिकृत पोर्टल)",u:PORTAL,k:"अधिकृत"},
+  {t:"नंदुरबार जिल्हा संकेतस्थळ – सेवा हक्क कायदा यादी (उत्पन्न दाखला: १५ दिवस)",u:"https://nandurbar.gov.in/?p=29359",k:"शासकीय (जिल्हा)"},
+  {t:"WikiProcedure – Maharashtra: Apply for Income Certificate (पायऱ्यांसाठी, दुय्यम स्रोत)",u:"https://wikiprocedure.com/index.php/Maharashtra_-_Apply_for_Income_Certificate",k:"दुय्यम"}],
+ limitation:"⚠ ही माहिती मसुदा आहे. कागदपत्रांची यादी अजून अधिकृत पोर्टलवरून पडताळलेली नाही; वेगवेगळ्या स्रोतांत थोडा फरक आहे. अर्ज करण्यापूर्वी आपले सरकार पोर्टलवर तपासा."
+};
+const CHIPS=["उत्पन्नाचा दाखला कसा काढायचा?","माझ्या मुलाच्या शिष्यवृत्तीसाठी उत्पन्नाचा दाखला काढायचा आहे. काय करावं?","Income certificate काढायचं आहे","शिधापत्रिका कशी काढायची?"];
+const IN_SCOPE=/उत्पन्न|उत्पान|उत्पंन|आय\s?प्रमाण|income/i;
+
+const $=id=>document.getElementById(id);
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+let conf=null;
+
+function show(v){["home","confirm","guide"].forEach(x=>$(x).hidden=x!==v);window.scrollTo(0,0);const h=document.querySelector("#"+v+" h1");h&&h.focus({preventScroll:true});stopSpeak()}
+
+/* ---------- Speech-to-text (Web Speech API, mr-IN) ---------- */
+const SR=window.SpeechRecognition||window.webkitSpeechRecognition;let rec=null,heard="";
+function setMic(on){$("mic").classList.toggle("on",on);$("mic").setAttribute("aria-pressed",on);$("miclabel").textContent=on?"ऐकत आहे… बोला (थांबवण्यासाठी दाबा)":"बोलून विचारा"}
+function listen(){
+ if(!SR){$("status").textContent="हा ब्राउझर आवाज ओळखण्यास समर्थन देत नाही. कृपया Chrome / Edge वापरा किंवा खाली टाइप करा.";return}
+ if(rec){rec.stop();return}
+ rec=new SR();rec.lang="mr-IN";rec.interimResults=true;rec.maxAlternatives=1;heard="";conf=null;
+ rec.onstart=()=>{setMic(true);$("status").textContent="ऐकत आहे…"};
+ rec.onresult=e=>{let t="";for(const r of e.results){t+=r[0].transcript;if(r.isFinal)conf=r[0].confidence}heard=t;$("status").textContent="“"+t+"”"};
+ rec.onerror=e=>{const m={"not-allowed":"मायक्रोफोनची परवानगी द्या (ब्राउझरच्या अॅड्रेस बारमधील मायक्रोफोन चिन्ह).","no-speech":"आवाज ऐकू आला नाही. पुन्हा प्रयत्न करा किंवा टाइप करा.","network":"आवाज ओळखण्यासाठी इंटरनेट आवश्यक आहे. कृपया टाइप करा.","audio-capture":"मायक्रोफोन सापडला नाही. कृपया टाइप करा."};$("status").textContent=m[e.error]||"आवाज ओळखता आला नाही. कृपया टाइप करा.";heard=""};
+ rec.onend=()=>{rec=null;setMic(false);if(heard.trim())toConfirm(heard.trim())};
+ try{rec.start()}catch(_){rec=null}
+}
+function toConfirm(t){$("tx").value=t;$("lowconf").hidden=!(conf!==null&&conf<0.7);show("confirm")}
+
+/* ---------- Text-to-speech (speechSynthesis; mr-IN preferred) ---------- */
+let voices=[];const loadV=()=>{voices=speechSynthesis.getVoices();const mr=voices.filter(v=>/^mr/i.test(v.lang));const s=$("vsel");if(s){const cur=s.value;s.innerHTML=mr.map(v=>`<option value="${esc(v.name)}">${esc(v.name.replace(/Microsoft |Online \(Natural\) - Marathi \(India\)/g,"").trim()||v.name)}</option>`).join("");if(cur)s.value=cur;s.parentElement.hidden=!mr.length}};
+if("speechSynthesis" in window){loadV();speechSynthesis.onvoiceschanged=loadV}
+function pickVoice(){const n=$("vsel")&&$("vsel").value;return voices.find(v=>v.name===n)||voices.find(v=>/^mr/i.test(v.lang))||null}
+function speak(text){
+ if(!("speechSynthesis" in window)){$("ttsnote").textContent="या ब्राउझरमध्ये आवाज-वाचन उपलब्ध नाही. कृपया मजकूर वाचा.";return}
+ speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(text);const v=pickVoice();
+ u.lang="mr-IN";if(v){u.voice=v;$("ttsnote").textContent=v.localService?"":"मराठी आवाज (ऑनलाइन): इंटरनेट आवश्यक."}
+ else{const hi=voices.find(x=>/^hi/i.test(x.lang));if(hi){u.voice=hi;u.lang=hi.lang}
+  $("ttsnote").textContent="या डिव्हाइसवर मराठी आवाज सापडला नाही"+(hi?"; हिंदी आवाज वापरला आहे, उच्चार पूर्ण अचूक नसू शकतात.":". कृपया मजकूर वाचा किंवा Windows मध्ये मराठी भाषा/आवाज जोडा (Settings → Time & language → Speech).")}
+ u.rate=parseFloat($("rate").value);speechSynthesis.speak(u)}
+function stopSpeak(){"speechSynthesis" in window&&speechSynthesis.cancel()}
+
+/* ---------- Render guide from the catalogue ---------- */
+function proceed(q){
+ const s=q.trim();if(!s)return;$("qecho").textContent="तुमचा प्रश्न: “"+s+"”";
+ const ok=IN_SCOPE.test(s);$("oos").hidden=ok;$("svc").hidden=!ok;$("card").hidden=!ok;$("oosl").href=PORTAL;
+ if(ok)render();show("guide")}
+function render(){
+ const S=SERVICE;$("stitle").textContent=S.titleMr+" · "+S.titleEn;
+ $("steps").innerHTML=S.steps.map((x,i)=>`<li><span class="t">${esc(x)}</span><button class="mini" data-i="${i}" aria-label="पायरी ${i+1} ऐका">🔊</button></li>`).join("");
+ $("docs").innerHTML=S.docs.map(d=>`<li><span>${esc(d)}</span><span class="b">तपासणी बाकी</span></li>`).join("");
+ $("srcs").innerHTML=S.sources.map(r=>`<li><a href="${r.u}" target="_blank" rel="noopener">${esc(r.t)}</a> — <i>${esc(r.k)}</i></li>`).join("")+`<li style="color:var(--muted)">शेवटची तपासणी: ${S.lastVerified} · तपासणारे: ${esc(S.reviewer)}</li>`;
+ $("lim").textContent=S.limitation;$("official").href=PORTAL;
+ $("c-title").textContent=S.titleMr;$("c-date").textContent="तारीख: "+S.lastVerified+" (मसुदा)";
+ $("c-steps").innerHTML=S.steps.map(x=>`<li>${esc(x)}</li>`).join("");
+ $("c-docs").innerHTML=S.docs.map(x=>`<li>${esc(x)}</li>`).join("");
+ $("c-link").innerHTML=`<a href="${PORTAL}">${PORTAL}</a>`;$("c-time").textContent=S.timeline;$("c-lim").textContent=S.limitation;
+}
+$("steps").addEventListener("click",e=>{const b=e.target.closest("button[data-i]");if(b)speak("पायरी "+(+b.dataset.i+1)+". "+SERVICE.steps[b.dataset.i])});
+$("listen").onclick=()=>speak(SERVICE.titleMr+". "+SERVICE.steps.map((s,i)=>"पायरी "+(i+1)+". "+s).join(" ")+" कागदपत्रांची यादी मसुदा आहे; अर्ज करण्यापूर्वी अधिकृत संकेतस्थळावर तपासा.");
+$("stop").onclick=stopSpeak;$("print").onclick=()=>window.print();
+
+/* ---------- Wiring ---------- */
+$("mic").onclick=listen;
+$("go").onclick=()=>{const v=$("typed").value.trim();if(v){conf=null;toConfirm(v)}else $("status").textContent="कृपया प्रश्न टाइप करा किंवा बोला."};
+$("typed").addEventListener("keydown",e=>{if(e.key==="Enter")$("go").click()});
+$("yes").onclick=()=>proceed($("tx").value);
+$("edit").onclick=()=>{$("tx").focus();$("tx").select()};
+$("again").onclick=()=>{show("home");listen()};
+$("back0").onclick=$("back1").onclick=()=>{$("typed").value="";$("status").textContent="";show("home")};
+$("chips").innerHTML=CHIPS.map(c=>`<button class="chip" type="button">${esc(c)}</button>`).join("");
+$("chips").addEventListener("click",e=>{const b=e.target.closest(".chip");if(b){conf=null;toConfirm(b.textContent)}});
+if(!SR)$("status").textContent="टीप: आवाजाने विचारण्यासाठी Chrome / Edge वापरा. टाइप करणे सर्व ब्राउझरमध्ये चालते.";
+</script>
+</body>
+</html>
