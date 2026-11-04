@@ -1,0 +1,8 @@
+.venv/
+.venv-audio/
+__pycache__/
+*.pyc
+.env
+eval_results.csv
+audio/
+bolseva_offline.html
