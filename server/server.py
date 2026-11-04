@@ -10,7 +10,7 @@ BASE = os.getenv("LLM_BASE_URL", "https://generativelanguage.googleapis.com/v1be
 KEY = os.getenv("LLM_API_KEY", "")
 MODEL = os.getenv("LLM_MODEL", "gemini-2.5-flash")
 ORIGINS = os.getenv("ALLOWED_ORIGINS",
-    "https://bolseva.vercel.app,http://localhost:8000,http://127.0.0.1:8000,null").split(",")
+    "https://bolseva-2.vercel.app,https://bolseva-ai.ercel.app,http://localhost:8000,http://127.0.0.1:8000,null").split(",")
 
 DOCS = {"income_cert", "domicile_cert", "caste_cert", "ncl_cert"}
 INTENTS = {"howto", "time", "docs", "why"}
